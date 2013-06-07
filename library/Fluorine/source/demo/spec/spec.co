@@ -1,0 +1,448 @@
+
+`
+if('undefined' != typeof require){  fluorine = require('fluorine').fluorine }
+else if('undefined' != typeof self){ fluorine = self.fluorine }
+
+if('undefined' == typeof window){ self['it'] = context }
+`
+
+fluorine.infect()
+fluorine.debug(true)
+
+describe "Process", !->
+
+  describe "\#next", !->
+    self.it "should grow while each action adds their executing part into the process.", !->
+      proc = Process()
+      proc.next !(a)->
+        a + 1
+
+      proc.next !(a, b)->
+        b + 2
+
+      proc.next !(a, b, c)->
+        c + 3
+
+      proc.next !(a, b, c, d)->
+        d + 4
+
+      proc.next !(a, b, c, d, e)->
+        e + 5
+
+      expect(proc.__queue.length).toEqual 5
+
+  describe "\#run", !->
+    self.it "should execute only one function after run once.", !->
+      proc = Process()
+      proc.next !(a)->
+        proc.run a + 1
+
+      proc.next !(b)->
+        proc.run b + 1
+
+      proc.run 0
+      expect(proc.extract()).toEqual 2
+
+    self.it "should execute exactly n times after run n times.", !->
+      proc = Process()
+      proc.next !(a)->
+        proc.run a + 1
+
+      proc.next !(b)->
+        proc.run b + 2
+
+      proc.next !(c)->
+        proc.run c + 3
+
+      proc.run 0
+      expect(proc.extract()).toEqual 6
+
+    self.it "should conquer the asynchronous callback hell.", !->
+      proc = Process()
+      runs !->
+        proc.next !->
+          proc.run 99
+
+        proc.next !->
+          jQuery.get "/testAjax", !(data)->
+            proc.run data # the end of asynchronous steps
+
+
+        proc.next !(data)->
+          proc.run data
+
+        proc.run() # synchronous
+
+      waits 500
+      runs !->
+        expect(Number(proc.extract())).toEqual 10
+
+
+self.Context = self.fluorine.Context
+describe "Context", !->
+  beforeEach !->
+    fluorine.Notifier.init()
+
+  describe "\#as", !->
+    self.it "should name results of previous computation as user needed", !->
+      # 300
+      # 0 + 100 + 300 
+      m = Context().
+            _( -> 0).as("foo").
+            _( (a)-> a+8 ).as("bar")
+
+      proc_m = m.done()
+      runned_m = proc_m()
+      expect(runned_m.extract()).toEqual 8
+      expect(m.__environment['foo']).toEqual 0
+      expect(m.__environment['bar']).toEqual 8
+
+  describe "\#let", !->
+    self.it "should force next stage is as", !->
+        m = Context(10).
+              let( (x) -> x-10 ).as('a').
+              let( (y) -> y == 0 ).as('b')
+              
+        proc_m = m.done()
+        runned_m = proc_m()
+        expect(m.__environment['a']).toEqual 0
+        expect(m.__environment['b']).toEqual true
+        
+  describe "\#tie", !->
+     self.it "should be able to tie deep contexts", !->
+        m = Context(10).
+              let( (x) -> x-10 ).as('a').
+              let( (y) -> y == 0 ).as('b').
+              tie(
+                ->
+                    Context(20).
+                    let( (x) -> x+@a+10 ).as('c').  # should "inherit" previous's environment.
+                    let( (y) -> y == 30 ).as('d').
+                    let( -> 300 ).as('z').
+                    tie(
+                      ->
+                          Context(@d).
+                            let( (x) -> not @b ).as('e').
+                            done()
+                      ).done()
+                )  # Coco syntax note: last P must equal to the arrow, and the arrow can not equal to the body
+              
+              
+        proc_m = m.done()
+        runned_m = proc_m()
+        expect(m.__environment['d']).toEqual true
+        expect(m.__environment['e']).toEqual false
+
+#    describe "\#bind", !->
+#        self.it "should behave like Monad Transformer", !->
+#            mna = Context(IO('/testAjax')).
+#                    bind(
+#                       path ->
+#                            IO(path).
+#                            get(path).
+#                            _( ten -> ten - 10 ).
+#                            done().
+#                            lift(Context)
+#                        ).
+#                    bind(
+#                        zero ->
+#                            IO(zero).
+#                            _( zero -> zero + 10 ).
+#                            done().
+#                            lift(Context)
+#                        )
+        
+self.IO = self.fluorine.IO
+describe "IO", !->
+  beforeEach !->
+    fluorine.Notifier.init()
+
+  describe "\#get", !->
+    self.it "should get text resouce fomr server ", !->
+        runned_m = null
+        m = IO().
+            get('/testAjax').as('ten').
+            _( -> 10 ).
+            _( -> this.ten - 10 )
+        runs( !->
+            proc_m = m.done()
+            runned_m := proc_m()
+        )
+        waits(300)
+        runs( !->
+            expect(runned_m.extract()).toEqual 0
+        )
+
+
+    self.it "should be able to request binary data from server.", !->
+      isGIF = false
+      
+      # make sure it's a gif (GIF8)
+      m1 = IO().getBinary("/media/TestGIF.gif")._((data) ->
+        arr = new Uint8Array(data)
+        i = undefined
+        len = undefined
+        length = arr.length
+        frames = 0
+        isGIF := true  if arr[0] is 0x47 or arr[1] is 0x49 or arr[2] is 0x46 or arr[3] is 0x38
+      ).done()()
+      waits 500
+      runs !->
+        expect(isGIF).toEqual true
+
+
+  describe "\#post", !->
+    self.it "should POST JSON to server.", !->
+        a = null
+        m = IO()._( -> {'a':"foobar"} ).post('/testAjax').
+                _( (r)-> a := r ).done()()
+        waits 500
+        runs !->
+            expect(a).toEqual "post ok"
+    self.it "should POST ArrayBuffer to server.", !->
+        a = null
+        m = IO()._( -> new Uint8Array([1,2,3])).postBinary('/testAjax').
+                _( (r)-> a := r ).done()()
+        waits 500
+        runs !->
+            expect(a).toEqual "others"  # server can't parse binary data yet.
+
+    self.it "should POST Blob to server.", !->
+        a = null
+        m = IO()._( -> new Blob(['blob object'], {'type': 'text/plain'}) ).postBinary('/testAjax').
+                _( (r)-> a := r ).done()()
+        waits 500
+        runs !->
+            expect(a).toEqual "others"  # server can't parse binary data yet.
+
+  describe "\#put", !->
+    self.it "should PUT JSON to server.", !->
+        a = null
+        m = IO()._( -> {'a':"foobar"}  ).put('/testAjax').
+                _( (r)-> a := r ).done()()
+        waits 500
+        runs !->
+            expect(a).toEqual "put ok"
+
+    self.it "should PUT ArrayBuffer to server.", !->
+        a = null
+        m = IO()._( -> new Uint8Array([1,2,3])).putBinary('/testAjax').
+                _( (r)-> a := r ).done()()
+        waits 500
+        runs !->
+            expect(a).toEqual "others"  # server can't parse binary data yet.
+
+    self.it "should PUT Blob to server.", !->
+        a = null
+        m = IO()._( -> new Blob(['blob object'], {'type': 'text/plain'}) ).putBinary('/testAjax').
+                _( (r)-> a := r ).done()()
+        waits 500
+        runs !->
+            expect(a).toEqual "others"  # server can't parse binary data yet.
+
+  describe "\#delete", !->
+    self.it "should DELETE to server.", !->
+        a = null
+        m = IO()._( -> {'a':"foobar"}  ).delete('/testAjax/asd').
+                _( (r)-> a := r ).done()()
+        waits 500
+        runs !->
+            expect(a).toEqual "delete ok"
+
+  describe "\#tie", !->
+    self.it "should tie some context and use it's result to GET from server, and tie handler of PUT.", !->
+        a = null
+        m = IO().get('/testAjax').
+                 _( (x) -> {'a': "foobar" } if x == 10 ).
+                tie(
+                    ->
+                        Context(20).
+                        let( (x) -> x+@a+10 ).as('c'). 
+                        let( (y) -> y == 30 ).as('d').
+                        let( -> 300 ).as('z').
+                        tie(
+                          ->
+                              Context(@d).
+                                _( (x) -> {'a': "foobar"} if(not @b) ).
+                                done()
+                          ).done()
+                    ).
+                put('/testAjax').
+                _( (r)-> a := r ).done()()
+        waits 500
+        runs !->
+            expect(a).toEqual "put ok"
+
+    self.it "should make IOs as sequence, mixed with some pure computations.", !->
+        m = IO().get('/testAjax').as('a').
+                 _( (x) -> {'a': "foobar"}).
+                 put('/testAjax').as('b').
+                 delete('/testAjax/asd').as('c')
+        m.done()()
+        waits 500
+        runs !->
+          expect(m.__environment['a']).toEqual "10"
+          expect(m.__environment['b']).toEqual "put ok"
+          expect(m.__environment['c']).toEqual "delete ok"
+
+self.UI = self.fluorine.UI
+describe "UI", !->
+  beforeEach !->
+    fluorine.Notifier.init()
+
+  describe "\#$", !->
+    self.it "should mapping jQery methods ", !->
+        names = [ 'animate', 'addClass', 'after', 'append'
+                , 'appendTo', 'attr' , 'before'
+                , 'css'
+                , 'clone', 'detach', 'empty'
+                , 'children','parents','parent'
+                , 'fadeIn', 'fadeOut'
+                , 'hide'
+                , 'height', 'html', 'innerHeight'
+                , 'innerWidth', 'insertAfter', 'insertBefore'
+                , 'offset', 'outerHeight', 'outerWidth'
+                , 'prepend', 'prependTo', 'remove'
+                , 'removeAfter', 'removeClass', 'removeProp'
+                , 'replaceAll', 'replaceWith', 'scrollLeft'
+                , 'show'
+                , 'scrollTop', 'text', 'toggleClass'
+                , 'unwrap', 'val', 'wrap'
+                , 'wrap', 'wrapAll', 'wrapInner'
+                , 'filter', 'not', 'eq', 'has'
+                ]
+        m = UI('body').$()
+        _.each\
+        (
+          names
+        , !(name)->
+            expect(m[name]).not.toBe(undefined)
+        )
+
+  describe "\#tie", !->
+    self.it "should allow mixin with IO context", !->
+        m = UI().
+             tie( -> IO().get('/testUI/body').done()).
+             $().css('background','cyan').
+             attr('tested','true').done()()
+        waits 300
+        runs !->
+            expect($('body').attr('tested')).toEqual "true"
+
+    self.it "should forwarding events as spec", !->
+        result = false
+        fluorine.Notifier.on('spec_click', !-> result := true)
+        m = UI('body').
+             forward('click.spec', -> 'spec_click').done()()
+        $('body').click()
+        expect(result).toEqual true
+
+    self.it "should present how 'find' works differently from jQuery's 'find'", !->
+        html  = "<div class='outer'><span class='outer'></span><div class='inner'>TEXT<span id='innder-but-global'>TXT</span></div></div>"
+
+        # Global jQuery's find need a global page.
+        $(html).appendTo('body')
+        spans = UI('body').$().select('div.outer').select('.inner').find('span').done()().extract()
+        expect(spans.length).toEqual 2  # Even though we narrow down the set, find still can select global scope's spans.
+        $('body div.outer').remove()
+
+    self.it "should present how 'select' works", !->
+        html  = "<div class='outer'><span class='outer'></span><div class='inner'>TEXT<span id='innder-but-global'>TXT</span></div></div>"
+
+        # Note the first level will not be a part of the set.
+        text  = UI(html).$().select('.inner').select('span').text().done()().extract()
+        spans = UI(html).$().select('.inner').select('span').done()().extract()
+        expect(text).toEqual "TXT"
+        expect(spans.length).toEqual 1
+
+    self.it "should mixin multiple contexts", !->
+
+        html = "<div id='text-div' style='border:2px red solid'>Some Text Div Here</div>"
+        e = UI(html).$().appendTo('body').done()
+
+        m = UI().
+             tie( -> IO().get('/testUI/body').done()).as('slc').
+             tie( -> IO().get('/testUI/some-text').done()).as('txt').
+             _( -> @slc ).$().css('background','cyan').
+             tie( -> e).
+             _( -> @slc).$().
+             tie( -> IO().get('/testUI/text-div').done()).
+             _( (s)-> '#'+s ).as('slc2').
+             $().
+             _( ($e)-> $e.text(@txt) ).
+             done()()
+        waits 300
+        runs !->
+            expect($('body').attr('tested')).toEqual "true"
+            expect($('#text-div').text()).toEqual "some-text"
+    
+
+self.Event = self.fluorine.Event
+describe "Event", !->
+  beforeEach !->
+    fluorine.Notifier.init()
+
+  describe "\#initialize", !->
+    self.it "should allow tie notes handlers", !->
+        m = Event('SpecNote')._( -> 10 ).as('a').
+             tie(
+                 ->
+                    IO().get('/testAjax').done()
+                 ).
+             as('b').
+             _( -> 0 == @a-(Number(@b)) ).as('c')
+
+        proc_m   = m.done()
+        runned_m = proc_m()
+        Notifier.trigger('SpecNote')
+        waits 300
+        runs !->
+          expect(m.__environment['c']).toEqual true
+
+self.Socket = self.fluorine.Socket
+describe "Socket", !->
+  beforeEach !->
+    fluorine.Notifier.init()
+
+  describe "\#open", !->
+    self.it "should allow open and close", !->
+        a = false
+        m = Socket().connect('ws://127.0.0.1:3030').
+                forward( !(name, data, hr)-> a:=true if name == "close" ).
+                close().
+                done()()
+        waits 300
+        runs !->
+            expect(a).toEqual true
+         
+`
+if('undefined' !== typeof window)
+{
+(function() {
+  var jasmineEnv = jasmine.getEnv();
+  jasmineEnv.updateInterval = 250;
+
+  var consoleReporter = new jasmine.ConsoleReporter();
+  jasmineEnv.addReporter(consoleReporter);
+
+  /*
+  jasmineEnv.specFilter = function(spec) {
+    return consoleReporter.specFilter(spec);
+  };
+  */
+
+  var currentWindowOnload = window.onload;
+  window.onload = function() {
+    if (currentWindowOnload) {
+      currentWindowOnload();
+    }
+
+    execJasmine();
+  };
+
+  function execJasmine() {
+    jasmineEnv.execute();
+  }
+})();
+}
+`
