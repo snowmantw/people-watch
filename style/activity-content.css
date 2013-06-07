@@ -1,0 +1,119 @@
+
+.activity-content div.more
+{
+    position: relative;        
+    display: block;
+    text-align: right;
+    font-size: 11pt;
+    font-weight: bolder;
+}
+
+.activity-content[data-role="new-message"]
+{
+    font-size: 12pt;
+    overflow: hidden;
+
+    white-space: normal;
+}
+
+.activity-content[data-role="new-message"] .more
+{
+    bottom: 5px;
+}
+
+.activity-content.with-media
+{
+    height: 360px;
+}
+
+.activity-content.with-media .info
+{
+    font-size: 10pt;
+}
+
+.activity-content.with-media .info span
+{
+    display: inline-block;
+}
+
+.activity-content.with-media .info .title
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 325px;    
+}
+
+.activity-content.with-media .info .title:before
+{
+    content: "標題：";
+}
+
+.activity-content[data-role="new-slide"]
+{
+    min-height: 325px;
+}
+
+.activity-content[data-role="new-slide"] img
+{
+    margin-top: 5px;
+}
+
+.activity-content[data-role="new-slide"] .info .num-pages
+{
+
+}
+
+.activity-content[data-role="new-slide"] .info .num-pages:before
+{
+    content: "  頁數：";
+}
+
+.activity-content[data-role="new-though"] .info
+{
+    border-top: 1px #DDD solid;
+}
+
+.activity-content.with-media .more
+{
+    bottom: 23px;
+}
+
+.activity-content[data-role="new-though"] .though-wrapper
+{
+    max-height: 200px;
+}
+
+.activity-content[data-role="new-though"] .though
+{
+    font-size: 10pt;
+    max-height: 200px;
+    overflow: hidden;
+    white-space: normal;
+}
+
+.activity-content[data-role="new-though"] .though li
+{
+    line-height: 20px;    
+}
+
+.activity-content[data-role="new-though"] .though h1, h2, h3, h4, h5, h6
+{
+    line-height: normal;
+}
+
+.activity-content[data-role="new-though"] .though h1
+{
+    font-size: 14pt;
+    border-bottom: 1px #DDD solid;
+}
+
+.activity-content[data-role="new-though"] .though h2, h3
+{
+    font-size: 12pt;
+}
+
+.activity-content[data-role="new-though"] .though-wrapper .more
+{
+    bottom: 30px;
+    position: relative;
+}

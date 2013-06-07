@@ -1,0 +1,109 @@
+.ui-page {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+}
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#map-canvas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#map-canvas-2 {
+    height: 45%;
+}
+#addplace {
+    height: 100%;
+}
+/*
+body, div[data-role="page"], div[data-role="content"], .swipeArea {
+    height: 100%;
+    width: 100%;
+}
+*/
+div[data-role="page"] {
+}
+div[data-role="content"] {
+}
+div[data-role="header"] {
+    z-index: 10;
+}
+
+/* Disable bootstrap's H1 and H2 */
+h1, h2, h3, h4, h5, h6
+{
+    line-height: inherit;
+}
+
+/* Basic style of the content block */
+.block
+{
+    border-radius: 5px;
+    border: 1px #DDD solid;
+    background-color: white;
+    display: block;
+    padding: 10px 15px 5px 15px;
+    margin: 10px auto;
+    width: 420px;
+}
+
+/* Gollum editor's styles */
+input#gollum-editor-title-input 
+{
+    background: none !important;
+    border: none !important;
+    height: 2.5em;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#gollum-dialog-dialog
+{
+    display: none !important;
+    top: 26% !important;
+}
+
+#gollum-dialog-dialog.active
+{
+    display: block !important;
+}
+
+#gollum-dialog-dialog-inner
+{
+    border: none !important;
+}
+
+#gollum-dialog-dialog-bg
+{
+    border: 2px #999 solid;
+    border-radius: 5px;
+}
+
+#gollum-editor-function-bar a.function-button
+{
+    height: 35px !important;
+    width: 40px !important;
+    margin: 1em 1em 0 0 !important;
+}
+
+#gollum-editor-function-bar a span
+{
+    margin-left: 8px !important;
+    margin-top: 5px !important;
+}
+
+/* Patch paddings of ui-block  */
+.main-nav.ui-navbar li .ui-btn-inner
+{
+    padding: 0 !important; 
+}
+
+#home .ui-listview > li:last-of-type
+{
+    border-bottom: 2px solid #cccccc !important;
+}

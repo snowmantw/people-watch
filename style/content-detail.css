@@ -1,0 +1,94 @@
+.content-detail-page
+{
+
+}
+
+/* For centrialize the buttons. */
+.content-detail-page .functions
+{
+    text-align: center;
+}
+
+.content-detail-page .block
+{
+    border-radius: 5px;
+    border: 1px #DDD solid;
+    background-color: white;
+    display: block;
+    padding: 10px 15px 5px 15px;
+    margin: 10px auto;
+    width: 420px;
+}
+
+.content-detail-page .comments .editor-comment
+{
+    border-bottom: 1px #DDD solid;
+    margin-bottom: 1em;
+}
+
+.content-detail-page .comments .list-comments .comment
+{
+    border-bottom: 1px #DDD solid; 
+    margin-bottom: 1em;
+}
+
+.content-detail-page .comments .list-comments .content
+{
+    margin-bottom: 10px;
+}
+
+.content-detail-page .comments .list-comments .comment .info
+{
+    text-align: right;
+}
+
+.content-detail-page .comments .list-comments .comment .info span
+{
+    margin-left: 10px;
+}
+
+.content-detail.media .media-thumbnail
+{
+    padding-bottom: 1em;
+}
+
+.content-detail.media .info
+{
+    border-bottom: 1px #DDD solid;
+    padding-bottom: 10px;
+    margin-bottom: 1em;
+}
+
+.content-detail.media .info > span
+{
+    display: inline-block;
+}
+
+.content-detail.media .info > .title
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 310px;    
+}
+
+.content-detail.media .info > .title:before
+{
+    content: "標題：";
+}
+
+.content-detail.slide .info > .num-pages:before
+{
+    content: "  頁數：";
+}
+
+/* Hide default number field of the slider. */
+.content-detail.media .handler > .ui-slider input[type="number"]
+{
+    display: none;
+}
+
+/* Hide default number field of the slider. */
+.content-detail.media .handler > .ui-slider .ui-slider-track
+{
+    margin-left: 0;
+}

@@ -1,0 +1,39 @@
+
+i.gy-icon
+{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+}
+
+i.gy-house
+{
+    background: url('../media/glyphish-icons.png') 373px 710px !important;
+}
+
+i.gy-persondot
+{
+
+    background: url('../media/glyphish-icons.png') 278px 280px !important;
+}
+
+i.gy-pencil
+{
+    background: url('../media/glyphish-icons.png') 178px 90px !important;
+}
+
+i.gy-notepad
+{
+    background: url('../media/glyphish-icons.png') 85px 135px !important;
+}
+
+i.gy-rolodex
+{
+    background: url('../media/glyphish-icons.png') 422px 230px !important;
+}
+
+i.gy-chat-2
+{
+    background: url('../media/glyphish-icons.png') 86px 952px !important;
+}
+

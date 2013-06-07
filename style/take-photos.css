@@ -1,0 +1,29 @@
+
+#take-photos video.deactivated
+{
+    display: none;
+}
+
+#take-photos canvas
+{
+    display: none;
+}
+
+#take-photos canvas.activated
+{
+    display: block;
+}
+
+#take-photos .metainfo
+{
+}
+
+#take-photos .metainfo.activated
+{
+    display: block;
+}
+
+#take-photos .metainfo .description
+{
+    height: 150px;
+}

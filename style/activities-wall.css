@@ -1,0 +1,45 @@
+
+#activities-wall
+{
+    list-style: none;
+    margin: 0 0 0 0;
+    padding-left: 0px;
+}
+
+#activities-wall > li
+{
+    border-bottom: 1px #CCC solid;
+    font-size: 14pt;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    white-space: nowrap;
+}
+
+#activities-wall > li > span
+{
+    display: inline-block;
+}
+
+#activities-wall > li span.from
+{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 70px ;
+}
+
+#activities-wall > li span.subject:before
+{
+    content: "|";
+    margin-right: 5px;
+}
+
+#activities-wall > li span.subject
+{
+    width: 335px;
+}
+
+#activities-wall > li div.activity-content
+{
+    display: none;
+}
+

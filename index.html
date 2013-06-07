@@ -1,0 +1,481 @@
+<!DOCTYPE HTML>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>SocialStudy - mobile</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="library/jQueryMobile/jquery.mobile.structure.min.css" /> 
+    <link rel="stylesheet" href="library/jQueryMobile/themes/jquery-default.min.css" />
+    <link rel="stylesheet" href="library/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="style/activities-wall.css" />
+    <link rel="stylesheet" href="style/activity-content.css" />
+    <link rel="stylesheet" href="style/search-people.css" />
+    <link rel="stylesheet" href="style/take-photos.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="stylesheet" href="style/content-detail.css" />
+    <link rel="stylesheet" href="style/glyphish-icons.css" />
+
+
+    <script src="library/jQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="library/jQueryMobile/jquery.mobile.min.js" type="text/javascript"></script>
+    <script src="library/underscore.js/underscore-min.js" type="text/javascript"></script>
+    <script src="library/Fluorine/build/fluorine/fluorine.js" type="text/javascript"></script>
+    <script src="library/main/main.js" type="text/javascript"></script>
+    <script src="library/main/demo.js" type="text/javascript"></script>
+
+    <!-- Gollum editor for thought -->
+
+    <script type="text/javascript" src="library/Gollum/scripts/mousetrap.min.js"></script>
+    <script type="text/javascript" src="library/Gollum/scripts/gollum.js"></script>
+    <script type="text/javascript" src="library/Gollum/scripts/gollum.dialog.js"></script>
+    <script type="text/javascript" src="library/Gollum/scripts/gollum.placeholder.js"></script>
+    <script type="text/javascript" src="library/Gollum/scripts/editor/gollum.editor.js"></script>
+    <script type="text/javascript" src="library/Gollum/scripts/editor.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="library/Gollum/styles/gollum.css" media="all">
+    <link rel="stylesheet" type="text/css" href="library/Gollum/styles/editor.css" media="all">
+    <link rel="stylesheet" type="text/css" href="library/Gollum/styles/dialog.css" media="all">
+    <link rel="stylesheet" type="text/css" href="library/Gollum/styles/template.css" media="all">
+
+    <!-- Gollum editor for thought:end -->
+
+</head>
+<body>
+    <!-- Homepage:start -->
+    <div data-role="page" id="home">
+    <div data-role="header" data-position="fixed">
+        <a href="#editors" data-direction="reverse" data-role="button" data-icon="edit" data-iconpos="notext"></a> 
+        <h1>我關注的政治對象</h1>
+        <a href="#search-people" data-role="button" data-icon="search" data-iconpos="notext"></a> 
+    </div>
+
+    <div data-role="content">
+    <ul data-role="listview">
+        <li>
+        <a href="#activities" class="ui-state-persist" data-type="party">
+            <h2>自鳴黨</h2>
+        </a>
+        </li>
+
+        <li>
+        <a href="#activities" class="ui-state-persist" data-type="party">
+            <h2>台愛台黨</h2>
+        </a>
+        </li>
+
+        <li>
+        <a href="#activities" class="ui-state-persist" data-type="legislator">
+            <h2>李中人 委員</h2>
+        </a>
+        </li>
+
+        <li>
+        <a href="#activities" class="ui-state-persist" data-type="legislator">
+            <h2>顏熄扇 委員</h2>
+        </a>
+        </li>
+
+        <li>
+        <a href="#activities" class="ui-state-persist" data-type="legislator">
+            <h2>王生 委員</h2>
+        </a>
+        </li>
+
+        <li>
+        <a href="#activities" class="ui-state-persist" data-type="councilor">
+            <h2>汪照明 議員</h2>
+        </a>
+        </li>
+        <!-- end of testing items -->
+    
+    </ul>
+    </div>
+    </div>
+    <!-- Homepage:end -->
+
+    <!-- Search People -->
+    <div data-role="page" data-add-back-btn="true" id="search-people" class="content-detail-page activitied">
+
+        <div data-role="header">
+        <h1>Search People</h1>
+        <a href="#home" data-icon="home" data-iconpos="notext" data-transition="fade">Home</a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+        <div class="content-primary">   
+            <ul data-role="listview" data-filter="true" data-filter-placeholder="Search people..." data-filter-theme="d"data-theme="d" data-divider-theme="d">
+                <li data-role="list-divider">A</li>
+                <li><a href="index.html">Adam Kinkaid</a></li>
+                <li><a href="index.html">Alex Wickerham</a></li>
+                <li><a href="index.html">Avery Johnson</a></li>
+                <li data-role="list-divider">B</li>
+                <li><a href="index.html">Bob Cabot</a></li>
+                <li data-role="list-divider">C</li>
+                <li><a href="index.html">Caleb Booth</a></li>
+                <li><a href="index.html">Christopher Adams</a></li>
+                <li><a href="index.html">Culver James</a></li>
+                <li data-role="list-divider">D</li>
+                <li><a href="index.html">David Walsh</a></li>
+                <li><a href="index.html">Drake Alfred</a></li>
+                <li data-role="list-divider">E</li>
+                <li><a href="index.html">Elizabeth Bacon</a></li>
+                <li><a href="index.html">Emery Parker</a></li>
+                <li><a href="index.html">Enid Voldon</a></li>
+                <li data-role="list-divider">F</li>
+                <li><a href="index.html">Francis Wall</a></li>
+                <li data-role="list-divider">G</li>
+                <li><a href="index.html">Graham Smith</a></li>
+                <li><a href="index.html">Greta Peete</a></li>
+                <li data-role="list-divider">H</li>
+                <li><a href="index.html">Harvey Walls</a></li>
+                <li data-role="list-divider">M</li>
+                <li><a href="index.html">Mike Farnsworth</a></li>
+                <li><a href="index.html">Murray Vanderbuilt</a></li>
+                <li data-role="list-divider">N</li>
+                <li><a href="index.html">Nathan Williams</a></li>
+                <li data-role="list-divider">P</li>
+                <li><a href="index.html">Paul Baker</a></li>
+                <li><a href="index.html">Pete Mason</a></li>
+                <li data-role="list-divider">R</li>
+                <li><a href="index.html">Rod Tarker</a></li>
+                <li data-role="list-divider">S</li>
+                <li><a href="index.html">Sawyer Wakefield</a></li>
+            </ul>
+            </div><!--/content-primary -->      
+
+            </div>      
+
+        </div><!-- /content -->
+
+        </div><!-- /page -->
+
+    <!-- Search People:end -->
+
+    <!-- Editors:start -->
+    <div data-role="page" data-add-back-btn="true" id="editors" class="content-detail-page activitied">
+    <div data-role="header" data-position="fixed">
+        <a href="#home" data-role="button" data-icon="home" data-iconpos="notext" data-transition="fade"></a> 
+        <h1>Editors</h1>
+        <div class="main-nav" data-role="navbar">
+        <ul>
+            <li><a href="#activities"><i class="gy-persondot gy-icon"></i></a></li>
+            <li><a href="#chat"><i class="gy-chat-2 gy-icon"></i></a></li>
+            <li><a href="#editors"><i class="gy-pencil gy-icon"></i></a></li>
+        </ul>
+        </div><!-- /navbar -->
+    </div>
+
+    <div data-role="content">
+    <ul data-role="listview">
+        <li>
+        <a href="#thought-editor" class="ui-state-persist">
+            <h2>新想法!</h2>
+        </a>
+        </li>
+
+        <li>
+        <a href="#slide-editor" class="ui-state-persist">
+            <h2>製作投影片</h2>
+        </a>
+        </li>
+
+        <li>
+        <a href="#take-photos" class="ui-state-persist">
+            <h2>拍照</h2>
+        </a>
+        </li>
+        <li>
+        <a href="#video-recorder" class="ui-state-persist">
+            <h2>錄影</h2>
+        </a>
+        </li>
+
+        <li>
+        <a href="#audio-recorder" class="ui-state-persist">
+            <h2>錄音</h2>
+        </a>
+        </li>
+
+    </ul>
+    </div>
+    </div>
+    <!-- Editors:end -->
+    
+
+
+    <!-- Templates -->
+    <script id="template-comments" type="text/x-handlebars-template">
+        <div class="comments">
+            <div class="editor-comment block">
+                <textarea name="editor">I'm a basic textarea. If this is pre-populated with content, the height will be automatically adjusted to fit without needing to scroll. That is a pretty handy usability feature.
+                </textarea>
+                <a class="button submit" href="index.html" data-role="button">Submit</a>
+            </div>
+            <div class="list-comments block">
+                <%= comments_block %>
+            </div>
+        </div>
+    </script>
+    <script id="template-comment-block" type="text/x-handlebars-template">
+        <div class="comment">
+            <div class="contents">
+                <%= contents %>
+            </div>
+            <div class="info">
+                <span class="from"><%= from %></span>
+                <span class="date"><%= date %></span>
+            </div>
+        </div>
+    </script>
+    <script id="template-activity" type="text/x-handlebars-template">
+            <li class="activity" data-toggle="0">
+                <span class="from"><%= from %></span>
+                <span class="subject"><%= subject %></span>
+                <span class="star <%= star_activitied %>"><i class="<%= star_icon %>"></i></span>
+                <%= contents %>
+            </li>
+    </script>
+    <script id="template-activity-content-message" type="text/x-handlebars-template">
+            <div class="activity-content block" data-role="new-message">
+                <span class="message"><%= message %></span>
+                <div class="more"><a href="#activity-content-message">...</a></div>
+            </div>
+    </script>
+    <script id="template-activity-content-slide" type="text/x-handlebars-template">
+            <div class="activity-content with-media block" data-role="new-slide">
+                <img src="<%= img_url %>" />
+                <div class="info">
+                    <span class="title"><%= title %></span>
+                    <span class="num-pages"><%= num_pages %></span>
+                </div>
+                <div class="more"><a href="#activity-content-slide">...</a></div>
+            </div>
+    </script>
+    <!-- How to use it: Need to remove first newline and spaces with "replace(/^[\t\n\r ]*/,"")",
+         then the render function can render it to DOM:
+
+            $(_.template($('#template-comment-block').text().replace(/^[\t\n\r ]*/,""))({'content': "Content Comment", 'from': "Greg Weng", 'date': "2013/03/10"}))
+
+     -->
+    <!-- Templates:end -->
+
+    
+    <!-- Activity Content: Slide -->
+    <div data-role="page" data-add-back-btn="true" id="activity-content-slide" class="content-detail-page activitied">
+        <div data-role="header" data-position="fixed">
+            <h1>Activity Content: Slide</h1>
+            <div class="main-nav" data-role="navbar">
+            <ul>
+                <li><a href="#activities"><i class="gy-persondot gy-icon"></i></a></li>
+                <li><a href="#chat"><i class="gy-chat-2 gy-icon"></i></a></li>
+                <li><a href="#editors"><i class="gy-pencil gy-icon"></i></a></li>
+            </ul>
+            </div><!-- /navbar -->
+        </div>
+        <div class="slide content-detail media block">
+            <div class="media-thumbnail">
+                <img src="media/dummy-slide.png" />
+            </div>
+            <div class="info">
+                <span class="title">All things about SlideShare</span>
+                <span class="num-pages">100/308</span>
+            </div>
+            <div class="handler">
+                <input type="range" name="slide-slider" class="slide-slider" value="25" min="0" max="100" data-highlight="true" data-mini="false" />
+            </div>
+        </div>
+        <div class="functions" data-role="controlgroup" data-type="horizontal">
+            <a href="index.html" data-role="button">Share</a>
+            <a id="media-page-comments" href="index.html" data-role="button">Comments</a>
+            <a href="index.html" data-role="button">Unstar</a>
+        </div>
+        <div class="comments-wrapper">
+        </div>
+    </div>
+    <!-- Activity Content: Slide -->
+
+    <!-- Activity Content: Though -->
+    <div data-role="page" data-add-back-btn="true" id="activity-content-though">
+        <div data-role="header" data-position="fixed">
+            <h1>Activity Content: Though</h1>
+        </div>
+    </div>
+    <!-- Activity Content: Though -->
+
+    <!-- Activity Content: Message -->
+    <div data-role="page" data-add-back-btn="true" id="activity-content-message">
+        <div data-role="header" data-position="fixed">
+            <h1>Activity Content: Message</h1>
+        </div>
+    </div>
+    <!-- Activity Content: Message -->
+
+    <!-- Course:begin -->
+    <div data-role="page" data-add-back-btn="true" id="activities">
+        <div data-role="header" data-position="fixed">
+            <h1><span data-role="target-activities" class="ui-target-activities">王生委員</span>最新動態</h1>
+
+<!--
+        <div class="main-nav" data-role="navbar">
+        <ul>
+            <li><a href="#activities"><i class="gy-persondot gy-icon"></i></a></li>
+            <li><a href="#chat"><i class="gy-chat-2 gy-icon"></i></a></li>
+            <li><a href="#editors"><i class="gy-pencil gy-icon"></i></a></li>
+        </ul>
+        </div>
+-->
+
+        </div>
+
+        <div data-role="content">
+            <ul id="activities-wall">
+            </ul>
+        </div>
+    </div>
+    <!-- Course:end -->
+
+    <!-- Take Photos -->
+    <div data-role="page" data-add-back-btn="true" id="take-photos" data-direction="reverse">
+        <div data-role="header" data-position="fixed">
+            <h1>拍照</h1>
+        </div>
+        <div class="block working-panel">
+            <video class="video" width="640" height="480" autoplay></video>
+            <canvas class="canvas" width="640" height="480"></canvas>
+            <button class="snap">Snap Photo</button>
+        </div>
+        <div class="block metainfo">
+            <input type="text" class="title" value="Input the title..." />
+            <textarea type="text" class="description" value="Write something..." ></textarea>
+            <a class="button submit" href="index.html" data-role="button">Submit</a>
+        </div>
+    </div>
+    <!-- Take Photos: end -->
+
+    <!-- Audio Recorder -->
+<!--
+    <div data-role="page" data-add-back-btn="true" id="audio-recorder" data-direction="reverse">
+        <div data-role="header" data-position="fixed">
+            <h1>錄音</h1>
+        </div>
+        <div class="block working-panel">
+            <canvas class="canvas" width="640" height="480"></canvas>
+            <button class="snap">Snap Photo</button>
+        </div>
+        <div class="block metainfo">
+            <input type="text" class="title" value="Input the title..." />
+            <textarea type="text" class="description" value="Write something..." ></textarea>
+            <a class="button submit" href="index.html" data-role="button">Submit</a>
+        </div>
+    </div>
+-->
+
+    <!-- Wiki editor for thought -->
+    <div data-role="page" data-add-back-btn="true" id="thought-editor">
+        <div data-role="header" data-position="fixed">
+            <h1>想法編輯器</h1>
+        </div>
+
+    <div id="note-editor" class="pagelet" >
+    <div id="wiki-wrapper" class="create">
+    <div id="wiki-preview">
+    </div>
+    <div id="wiki-content" class="create edit">
+      <div class="has-rightbar">
+        <div id="gollum-editor" data-escaped-name="home" class="create">
+
+        <!-- TODO: API -->
+        <form name="gollum-editor" action="/create" method="post">
+          <fieldset id="gollum-editor-fields">
+          <div id="gollum-editor-title-field" class="singleline">
+            <label for="page" class="jaws">Page Title</label>
+            <input id="gollum-editor-title-input" type="text" name="page" id="gollum-editor-page-title" value="New Thought !">
+            <!-- <p class="path_note"><strong>NOTE:</strong> {{All temporary changes will be saved in your computer.}} </p> -->
+          </div>
+          <input type="hidden" name="path" id="gollum-editor-page-path" value="/">
+          <div id="gollum-editor-function-bar">
+            <div id="gollum-editor-function-buttons">
+            <a href="#" id="function-bold" class="function-button">
+              <span>Bold</span></a>
+            <a href="#" id="function-italic" class="function-button">
+              <span>Italic</span></a>
+            <a href="#" id="function-code" class="function-button">
+              <span>Code</span></a>
+            <a href="#" id="function-ul" class="function-button">
+              <span>Unordered List</span></a>
+            <a href="#" id="function-ol" class="function-button">
+              <span>Ordered List</span></a>
+            <a href="#" id="function-blockquote" class="function-button">
+              <span>Blockquote</span></a>
+        
+            <a href="#" id="function-hr" class="function-button">
+              <span>Horizontal Rule</span></a>
+            <a href="#" id="function-h1" class="function-button">
+              <span>h1</span></a>
+            <a href="#" id="function-h2" class="function-button">
+              <span>h2</span></a>
+            <a href="#" id="function-h3" class="function-button">
+              <span>h3</span></a>
+            <a href="#" id="function-link" class="function-button">
+              <span>Link</span></a>
+            <a href="#" id="function-image" class="function-button">
+              <span>Image</span></a>
+            <a href="#" id="function-help" class="function-button">
+              <span>Help</span></a>
+            </div>
+          </div>
+          <div id="gollum-editor-help" class="jaws">
+            <ul id="gollum-editor-help-parent">
+              <li><a href="javascript:void(0);" class="selected">Help 1</a></li>
+              <li><a href="javascript:void(0);">Help 1</a></li>
+              <li><a href="javascript:void(0);">Help 1</a></li>
+            </ul>
+            <ul id="gollum-editor-help-list">
+              <li><a href="javascript:void(0);">Help 2</a></li>
+              <li><a href="javascript:void(0);">Help 3</a></li>
+              <li><a href="javascript:void(0);">Help 4</a></li>
+              <li><a href="javascript:void(0);">Help 5</a></li>
+              <li><a href="javascript:void(0);">Help 6</a></li>
+              <li><a href="javascript:void(0);">Help 7</a></li>
+              <li><a href="javascript:void(0);">Help 8</a></li>
+            </ul>
+            <div id="gollum-editor-help-wrapper">
+              <div id="gollum-editor-help-content">
+              <p>
+              </p>
+              </div>
+            </div>
+          </div>
+            <textarea id="gollum-editor-body"
+             data-markup-lang="" name="content" class="mousetrap"></textarea>
+        
+<!-- Summary of this updating, we don't need that -->
+            <div id="gollum-editor-edit-summary" class="singleline" style="display: none">
+              <label for="message" class="jaws">Edit message:</label>
+              <input type="text" name="message" id="gollum-editor-message-field" value="Created home ()">
+            </div>
+        
+            <span class="jaws"><br></span>
+
+            <!-- TODO: API -->
+            <input type="button" id="gollum-editor-preview" class="minibutton" value="Preview">
+            <input type="submit" id="gollum-editor-submit" value="Save" title="Save current changes">
+          </fieldset>
+        </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script type="text/javascript" class="global">
+    var default_markup = 'markdown';
+    </script>
+
+    </div>
+    </div>
+    <!-- Wiki editor for thought: end -->
+</body>
+</html>

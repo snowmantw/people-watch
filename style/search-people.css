@@ -1,0 +1,16 @@
+
+#search-people ul li
+{
+    border-bottom: 1px solid #cccccc;
+}
+
+#search-people .ui-li-divider
+{
+    background: #bbb /*{d-bar-background-color}*/;
+    background-image: linear-gradient( #ddd /*{d-bar-background-start}*/, #bbb /*{d-bar-background-end}*/);
+}
+
+#search-people .ui-input-search
+{
+    background-color: white;
+}
